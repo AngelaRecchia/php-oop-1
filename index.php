@@ -7,5 +7,55 @@
 
 <?php
 
-class Movie {}
+class Movie {
+
+    public $title;
+    public $director;
+    public $year;
+    public $genre;
+    public $rating;
+    public $seen = false;
+
+
+    function __construct ($_title, $_director) {
+        $this->title = $_title;
+        $this->director = $_director;
+    }
+
+    public function setSeen() {
+        $this->seen = true;
+    }
+
+
+
+}
+
+$m1 = new Movie("Synecdoche, New York", "Charlie Kaufman");
+$m1->year = 2008;
+$m1->genre = "Drama";
+$m1->rating = 7.8;
+
+$m2 = new Movie("12 Angry Men", "Sidney Lumet");
+$m2->year = 1957;
+$m2->genre = "Drama";
+$m2->rating = 9;
+
+$m3 = new Movie("Seven", "David Fincher");
+$m3->year = 1995;
+$m3->genre = "Thriller";
+$m3->rating = 8.6;
+
+$movies = [$m1,$m2,$m3];
+
+$m1->setSeen();
+var_dump($m1,$m2,$m3);
+
+echo("<h3>To Watch:</h3>");
+foreach ($movies as $movie) {
+    echo ("<ul>");
+    if (!$movie->seen) {
+        echo ("<li>" . $movie->title . "</li>");
+    }
+    echo ("</ul>");
+}
 ?>
