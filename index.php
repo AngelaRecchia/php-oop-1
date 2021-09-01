@@ -26,8 +26,6 @@ class Movie {
         $this->seen = true;
     }
 
-
-
 }
 
 $m1 = new Movie("Synecdoche, New York", "Charlie Kaufman");
@@ -48,7 +46,28 @@ $m3->rating = 8.6;
 $movies = [$m1,$m2,$m3];
 
 $m1->setSeen();
+
+$proprList = get_class_vars('Movie');
 var_dump($m1,$m2,$m3);
+echo("<h1>Movies</h1>");
+
+echo ("<table>");
+
+echo ("<tr>");
+foreach ( $proprList as $propr => $value) {
+        echo("<th>" . $propr . "</th>");
+};
+echo ("</tr>");
+
+foreach ($movies as $movie) {
+    echo("<tr>");
+    foreach ( $proprList as $propr => $value) {
+        echo("<td>". $movie->$propr . "</td>");
+    }
+    echo ("</tr>");
+}
+echo("</table>");
+
 
 echo("<h3>To Watch:</h3>");
 foreach ($movies as $movie) {
