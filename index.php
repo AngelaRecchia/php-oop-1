@@ -26,8 +26,45 @@ class Movie {
         $this->seen = true;
     }
 
+    public function tablePrint($arr) {
+
+        $proprList = get_class_vars('Movie');
+
+        echo("<h1>Movies</h1>");
+
+        echo ("<table>");
+
+        echo ("<tr>");
+        foreach ( $proprList as $propr => $value) {
+                echo("<th>" . $propr . "</th>");
+        };
+        echo ("</tr>");
+
+        foreach ($arr as $movie) {
+            echo("<tr>");
+            foreach ( $proprList as $propr => $value) {
+                echo("<td>". $movie->$propr . "</td>");
+            }
+            echo ("</tr>");
+        }
+        echo("</table>");
+
+    }
+
+    public function listToWatch($arr) {
+        echo("<h3>To Watch:</h3>");
+        foreach ($arr as $movie) {
+            echo ("<ul>");
+            if (!$movie->seen) {
+                echo ("<li>" . $movie->title . "</li>");
+            }
+            echo ("</ul>");
+        }
+    }
+
 }
 
+/* crea istanze movie */
 $m1 = new Movie("Synecdoche, New York", "Charlie Kaufman");
 $m1->year = 2008;
 $m1->genre = "Drama";
@@ -43,38 +80,21 @@ $m3->year = 1995;
 $m3->genre = "Thriller";
 $m3->rating = 8.6;
 
-$movies = [$m1,$m2,$m3];
+/* aggiunge movie ad array movies */
+$movies = [];
+$movies[] = $m1;
+$movies[] = $m2;
+$movies[] = $m3;
 
+/* imposta m1 come visto */
 $m1->setSeen();
 
-$proprList = get_class_vars('Movie');
+/* stampa tabella movies */
+$m1->tablePrint($movies);
+
+/* stampa lista film non visti */
+$m1->listToWatch($movies);
+
 var_dump($m1,$m2,$m3);
-echo("<h1>Movies</h1>");
 
-echo ("<table>");
-
-echo ("<tr>");
-foreach ( $proprList as $propr => $value) {
-        echo("<th>" . $propr . "</th>");
-};
-echo ("</tr>");
-
-foreach ($movies as $movie) {
-    echo("<tr>");
-    foreach ( $proprList as $propr => $value) {
-        echo("<td>". $movie->$propr . "</td>");
-    }
-    echo ("</tr>");
-}
-echo("</table>");
-
-
-echo("<h3>To Watch:</h3>");
-foreach ($movies as $movie) {
-    echo ("<ul>");
-    if (!$movie->seen) {
-        echo ("<li>" . $movie->title . "</li>");
-    }
-    echo ("</ul>");
-}
 ?>
